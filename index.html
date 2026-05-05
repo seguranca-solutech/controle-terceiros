@@ -16,24 +16,29 @@
     body {
       min-height: 100vh;
       background:
-        linear-gradient(135deg, rgba(0, 120, 110, 0.95), rgba(31, 165, 145, 0.70)),
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.35), transparent 25%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.20), transparent 28%);
+        linear-gradient(135deg, rgba(0, 120, 110, 0.96), rgba(34, 174, 151, 0.76)),
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.30), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(255,255,255,0.20), transparent 26%);
       padding: 24px;
       color: #111;
     }
 
     .painel {
-      width: min(1180px, 100%);
+      width: min(1240px, 100%);
       margin: 0 auto;
     }
 
     .topo {
       display: grid;
-      grid-template-columns: 330px 1fr 190px;
+      grid-template-columns: 340px 1fr 190px;
       align-items: center;
       gap: 24px;
-      margin-bottom: 28px;
+      margin-bottom: 18px;
+    }
+
+    .filtros {
+      display: grid;
+      gap: 10px;
     }
 
     .filtro-box {
@@ -51,7 +56,8 @@
       color: #333;
     }
 
-    .filtro-box select {
+    .filtro-box select,
+    .filtro-box input {
       width: 100%;
       height: 36px;
       border: 1px solid #cfcfcf;
@@ -61,12 +67,30 @@
       background: #fff;
     }
 
+    .botao-atualizar {
+      width: 100%;
+      height: 34px;
+      border: none;
+      border-radius: 5px;
+      background: #05b851;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    }
+
+    .botao-atualizar:hover {
+      filter: brightness(0.95);
+    }
+
     .titulo {
       color: #fff;
-      font-size: 34px;
-      font-weight: 800;
+      font-size: 36px;
+      font-weight: 900;
       text-align: center;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     .logo {
@@ -86,6 +110,45 @@
       font-weight: 700;
     }
 
+    .indicadores {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .indicador {
+      background: rgba(255,255,255,0.95);
+      border-radius: 7px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.22);
+      padding: 11px 8px;
+      text-align: center;
+      min-height: 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .indicador .num {
+      font-size: 25px;
+      font-weight: 900;
+      color: #111;
+    }
+
+    .indicador .txt {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #444;
+      margin-top: 4px;
+    }
+
+    .indicador.liberado .num { color: #03ad4d; }
+    .indicador.pendente .num { color: #f5a400; }
+    .indicador.bloqueado .num { color: #d62828; }
+    .indicador.vencido .num { color: #9b0000; }
+    .indicador.vencendo .num { color: #e08100; }
+
     .linha-principal {
       display: grid;
       grid-template-columns: 1fr 310px;
@@ -95,7 +158,8 @@
 
     .card-nome,
     .card-status,
-    .card {
+    .card,
+    .observacao {
       background: #fff;
       border-radius: 7px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.28);
@@ -112,7 +176,7 @@
 
     .rotulo {
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       color: #222;
       text-transform: uppercase;
       margin-bottom: 10px;
@@ -133,21 +197,10 @@
       justify-content: center;
     }
 
-    .card-status.liberado {
-      background: #05b851;
-    }
-
-    .card-status.bloqueado {
-      background: #d62828;
-    }
-
-    .card-status.pendente {
-      background: #f5a400;
-    }
-
-    .card-status.vencido {
-      background: #8b0000;
-    }
+    .card-status.liberado { background: #05b851; }
+    .card-status.bloqueado { background: #d62828; }
+    .card-status.pendente { background: #f5a400; }
+    .card-status.vencido { background: #8b0000; }
 
     .status-texto {
       font-size: 34px;
@@ -167,21 +220,41 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
 
     .valor {
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 900;
       color: #02b957;
+      line-height: 1.2;
     }
 
-    .valor.alerta {
+    .valor.vencido {
       color: #d62828;
+    }
+
+    .valor.vencendo {
+      color: #e08100;
     }
 
     .valor.pendente {
       color: #f5a400;
     }
+
+    .tag {
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+
+    .tag.ok { color: #02b957; }
+    .tag.vencido { color: #d62828; }
+    .tag.vencendo { color: #e08100; }
+    .tag.pendente { color: #f5a400; }
 
     .treinamentos {
       grid-row: span 3;
@@ -199,13 +272,33 @@
       text-transform: uppercase;
       color: #555;
       margin-bottom: 7px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .treinamento-item .data {
       font-size: 17px;
       font-weight: 900;
       color: #333;
+    }
+
+    .treinamento-item .data.vencido { color: #d62828; }
+    .treinamento-item .data.vencendo { color: #e08100; }
+
+    .observacao {
+      margin-top: 22px;
+      padding: 14px 16px;
+      text-align: left;
+    }
+
+    .observacao .rotulo {
+      margin-bottom: 6px;
+    }
+
+    .observacao p {
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      line-height: 1.4;
     }
 
     .mensagem {
@@ -217,7 +310,7 @@
       text-align: center;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       body {
         padding: 14px;
       }
@@ -227,12 +320,16 @@
       }
 
       .titulo {
-        font-size: 26px;
+        font-size: 27px;
       }
 
       .logo {
         justify-self: center;
         text-align: center;
+      }
+
+      .indicadores {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .linha-principal {
@@ -258,11 +355,20 @@
 <body>
   <main class="painel">
     <section class="topo">
-      <div class="filtro-box">
-        <label for="seletor">Selecione o colaborador</label>
-        <select id="seletor">
-          <option>Carregando...</option>
-        </select>
+      <div class="filtros">
+        <div class="filtro-box">
+          <label for="busca">Buscar colaborador</label>
+          <input id="busca" type="text" placeholder="Digite parte do nome..." />
+        </div>
+
+        <div class="filtro-box">
+          <label for="seletor">Selecione o colaborador</label>
+          <select id="seletor">
+            <option>Carregando...</option>
+          </select>
+        </div>
+
+        <button class="botao-atualizar" onclick="carregarDados()">Atualizar dados</button>
       </div>
 
       <h1 class="titulo">CONTROLE DE TERCEIROS</h1>
@@ -273,6 +379,8 @@
       </div>
     </section>
 
+    <section id="indicadores" class="indicadores"></section>
+
     <section id="conteudo">
       <div class="mensagem">Carregando dados...</div>
     </section>
@@ -282,6 +390,43 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbyLu3Gx8fqI5aQzp-TGhcBgWO9s9N0KwTQwG5L7seTkjjkbw2gDhA2JI9CvtpjNwDus/exec";
 
     let base = [];
+    let filtrados = [];
+
+    const camposValidade = [
+      "VALIDADE_INTEGRACAO",
+      "VALIDADE_ASO",
+      "VALIDADE_PCMSO",
+      "VALIDADE_PGR",
+      "FICHA_EPI",
+      "NR35",
+      "NR33",
+      "NR10"
+    ];
+
+    function normalizarTexto(valor) {
+      return String(valor || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function parseData(valor) {
+      if (!valor || valor === "--") return null;
+
+      const texto = String(valor).trim();
+
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
+        const [dia, mes, ano] = texto.split("/").map(Number);
+        return new Date(ano, mes - 1, dia);
+      }
+
+      const data = new Date(texto);
+
+      if (isNaN(data.getTime())) return null;
+
+      return new Date(data.getFullYear(), data.getMonth(), data.getDate());
+    }
 
     function formatarData(valor) {
       if (!valor || valor === "--") return "--";
@@ -303,8 +448,45 @@
       });
     }
 
+    function diasAteVencer(valor) {
+      const data = parseData(valor);
+      if (!data) return null;
+
+      const hoje = new Date();
+      const hojeLimpo = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+
+      return Math.ceil((data - hojeLimpo) / (1000 * 60 * 60 * 24));
+    }
+
+    function situacaoData(valor) {
+      const dias = diasAteVencer(valor);
+
+      if (dias === null) return "sem-data";
+      if (dias < 0) return "vencido";
+      if (dias <= 30) return "vencendo";
+      return "ok";
+    }
+
+    function textoSituacao(valor) {
+      const situacao = situacaoData(valor);
+      const dias = diasAteVencer(valor);
+
+      if (situacao === "vencido") return `Vencido há ${Math.abs(dias)} dia(s)`;
+      if (situacao === "vencendo") return `Vence em ${dias} dia(s)`;
+      if (situacao === "ok") return "Dentro do prazo";
+      return "";
+    }
+
+    function temDocumentoVencido(item) {
+      return camposValidade.some(campo => situacaoData(item[campo]) === "vencido");
+    }
+
+    function temDocumentoVencendo(item) {
+      return camposValidade.some(campo => situacaoData(item[campo]) === "vencendo");
+    }
+
     function classeStatus(status) {
-      const s = String(status || "").toLowerCase();
+      const s = normalizarTexto(status);
 
       if (s.includes("liberado")) return "liberado";
       if (s.includes("bloqueado")) return "bloqueado";
@@ -314,28 +496,95 @@
       return "pendente";
     }
 
-    function classeValor(valor) {
-      const v = String(valor || "").toLowerCase();
+    function classeValorDocumento(valor) {
+      const texto = normalizarTexto(valor);
 
-      if (v.includes("vencido") || v.includes("bloqueado")) return "alerta";
-      if (v.includes("pendente")) return "pendente";
+      if (texto.includes("vencido") || texto.includes("bloqueado")) return "vencido";
+      if (texto.includes("pendente")) return "pendente";
+
+      const sit = situacaoData(valor);
+
+      if (sit === "vencido") return "vencido";
+      if (sit === "vencendo") return "vencendo";
 
       return "";
     }
 
-    function montarCard(rotulo, valor) {
-      const valorFormatado = formatarData(valor);
+    function montarCard(rotulo, valor, validarData = false) {
+      const valorFormatado = validarData ? formatarData(valor) : (valor || "--");
+      const classe = validarData ? classeValorDocumento(valor) : classeValorDocumento(valorFormatado);
+      const tag = validarData ? textoSituacao(valor) : "";
 
       return `
         <div class="card">
           <div class="rotulo">${rotulo}</div>
-          <div class="valor ${classeValor(valorFormatado)}">${valorFormatado || "--"}</div>
+          <div class="valor ${classe}">${valorFormatado || "--"}</div>
+          ${tag ? `<div class="tag ${classe || "ok"}">${tag}</div>` : ""}
+        </div>
+      `;
+    }
+
+    function montarTreinamento(rotulo, valor) {
+      const classe = classeValorDocumento(valor);
+      const tag = textoSituacao(valor);
+
+      return `
+        <div class="treinamento-item">
+          <div class="sub">${rotulo}</div>
+          <div class="data ${classe}">${formatarData(valor)}</div>
+          ${tag ? `<div class="tag ${classe || "ok"}">${tag}</div>` : ""}
+        </div>
+      `;
+    }
+
+    function renderizarIndicadores() {
+      const total = base.length;
+      const liberados = base.filter(i => classeStatus(i.STATUS) === "liberado").length;
+      const pendentes = base.filter(i => classeStatus(i.STATUS) === "pendente").length;
+      const bloqueados = base.filter(i => classeStatus(i.STATUS) === "bloqueado").length;
+      const vencidos = base.filter(temDocumentoVencido).length;
+      const vencendo = base.filter(i => !temDocumentoVencido(i) && temDocumentoVencendo(i)).length;
+
+      document.getElementById("indicadores").innerHTML = `
+        <div class="indicador">
+          <div class="num">${total}</div>
+          <div class="txt">Total ativos</div>
+        </div>
+
+        <div class="indicador liberado">
+          <div class="num">${liberados}</div>
+          <div class="txt">Liberados</div>
+        </div>
+
+        <div class="indicador pendente">
+          <div class="num">${pendentes}</div>
+          <div class="txt">Pendentes</div>
+        </div>
+
+        <div class="indicador bloqueado">
+          <div class="num">${bloqueados}</div>
+          <div class="txt">Bloqueados</div>
+        </div>
+
+        <div class="indicador vencido">
+          <div class="num">${vencidos}</div>
+          <div class="txt">Com vencidos</div>
+        </div>
+
+        <div class="indicador vencendo">
+          <div class="num">${vencendo}</div>
+          <div class="txt">Vencendo 30 dias</div>
         </div>
       `;
     }
 
     function renderizar(item) {
       const conteudo = document.getElementById("conteudo");
+
+      if (!item) {
+        conteudo.innerHTML = `<div class="mensagem">Nenhum colaborador encontrado.</div>`;
+        return;
+      }
 
       conteudo.innerHTML = `
         <section class="linha-principal">
@@ -353,66 +602,76 @@
         <section class="grid-cards">
           ${montarCard("Função", item.FUNCAO)}
           ${montarCard("Empresa", item.EMPRESA)}
-          ${montarCard("Validade da Integração", item.VALIDADE_INTEGRACAO)}
-          ${montarCard("Validade ASO", item.VALIDADE_ASO)}
+          ${montarCard("Validade da Integração", item.VALIDADE_INTEGRACAO, true)}
+          ${montarCard("Validade ASO", item.VALIDADE_ASO, true)}
 
-          ${montarCard("Validade PCMSO", item.VALIDADE_PCMSO)}
-          ${montarCard("Validade PGR", item.VALIDADE_PGR)}
-          ${montarCard("Ficha de EPI", item.FICHA_EPI)}
+          ${montarCard("Validade PCMSO", item.VALIDADE_PCMSO, true)}
+          ${montarCard("Validade PGR", item.VALIDADE_PGR, true)}
+          ${montarCard("Ficha de EPI", item.FICHA_EPI, true)}
 
           <div class="card treinamentos">
             <div class="rotulo">Treinamentos</div>
-
-            <div class="treinamento-item">
-              <div class="sub">Validade NR35</div>
-              <div class="data">${formatarData(item.NR35)}</div>
-            </div>
-
-            <div class="treinamento-item">
-              <div class="sub">Validade NR-33</div>
-              <div class="data">${formatarData(item.NR33)}</div>
-            </div>
-
-            <div class="treinamento-item">
-              <div class="sub">Validade NR-10</div>
-              <div class="data">${formatarData(item.NR10)}</div>
-            </div>
+            ${montarTreinamento("Validade NR35", item.NR35)}
+            ${montarTreinamento("Validade NR-33", item.NR33)}
+            ${montarTreinamento("Validade NR-10", item.NR10)}
           </div>
 
           ${montarCard("RG/CPF", item.RG_CPF)}
           ${montarCard("Ficha de Registro", item.FICHA_REGISTRO)}
           ${montarCard("CTPS", item.CTPS)}
         </section>
+
+        <section class="observacao">
+          <div class="rotulo">Observação</div>
+          <p>${item.OBSERVACAO || "Sem observações registradas."}</p>
+        </section>
       `;
     }
 
-    function popularSeletor() {
+    function popularSeletor(lista) {
       const seletor = document.getElementById("seletor");
 
       seletor.innerHTML = "";
 
-      base.forEach((item, index) => {
+      if (lista.length === 0) {
+        const option = document.createElement("option");
+        option.textContent = "Nenhum colaborador encontrado";
+        option.value = "";
+        seletor.appendChild(option);
+        renderizar(null);
+        return;
+      }
+
+      lista.forEach((item, index) => {
         const option = document.createElement("option");
         option.value = index;
         option.textContent = item.NOME || `Registro ${index + 1}`;
         seletor.appendChild(option);
       });
 
-      seletor.addEventListener("change", () => {
-        renderizar(base[Number(seletor.value)]);
+      seletor.value = 0;
+      renderizar(lista[0]);
+    }
+
+    function aplicarBusca() {
+      const termo = normalizarTexto(document.getElementById("busca").value);
+
+      filtrados = base.filter(item => {
+        const nome = normalizarTexto(item.NOME);
+        const empresa = normalizarTexto(item.EMPRESA);
+        const funcao = normalizarTexto(item.FUNCAO);
+
+        return nome.includes(termo) || empresa.includes(termo) || funcao.includes(termo);
       });
 
-      if (base.length > 0) {
-        seletor.value = 0;
-        renderizar(base[0]);
-      }
+      popularSeletor(filtrados);
     }
 
     async function carregarDados() {
       const conteudo = document.getElementById("conteudo");
 
       try {
-        const resposta = await fetch(API_URL);
+        const resposta = await fetch(API_URL + "?cache=" + Date.now(), { cache: "no-store" });
         base = await resposta.json();
 
         if (!Array.isArray(base) || base.length === 0) {
@@ -420,9 +679,20 @@
           return;
         }
 
-        base.sort((a, b) => String(a.NOME).localeCompare(String(b.NOME), "pt-BR"));
+        base = base
+          .filter(item => normalizarTexto(item.ATIVO) === "sim")
+          .sort((a, b) => String(a.NOME).localeCompare(String(b.NOME), "pt-BR"));
 
-        popularSeletor();
+        filtrados = [...base];
+
+        renderizarIndicadores();
+        popularSeletor(filtrados);
+
+        document.getElementById("seletor").onchange = (e) => {
+          renderizar(filtrados[Number(e.target.value)]);
+        };
+
+        document.getElementById("busca").oninput = aplicarBusca;
 
       } catch (erro) {
         console.error(erro);
