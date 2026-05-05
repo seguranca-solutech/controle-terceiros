@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controle de Terceiros</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(0, 120, 110, 0.95), rgba(31, 165, 145, 0.70)),
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.35), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.20), transparent 28%);
+      padding: 24px;
+      color: #111;
+    }
+
+    .painel {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .topo {
+      display: grid;
+      grid-template-columns: 330px 1fr 190px;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .filtro-box {
+      background: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    }
+
+    .filtro-box label {
+      display: block;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .filtro-box select {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #cfcfcf;
+      border-radius: 4px;
+      padding: 0 8px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .titulo {
+      color: #fff;
+      font-size: 34px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    .logo {
+      justify-self: end;
+      color: #fff;
+      font-size: 25px;
+      font-weight: 900;
+      line-height: 0.9;
+      text-align: right;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    }
+
+    .logo span {
+      display: block;
+      font-size: 11px;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .linha-principal {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+
+    .card-nome,
+    .card-status,
+    .card {
+      background: #fff;
+      border-radius: 7px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.28);
+      text-align: center;
+    }
+
+    .card-nome {
+      min-height: 110px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .rotulo {
+      font-size: 11px;
+      font-weight: 700;
+      color: #222;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .nome {
+      font-size: 34px;
+      font-weight: 900;
+      color: #000;
+    }
+
+    .card-status {
+      min-height: 110px;
+      padding: 18px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card-status.liberado {
+      background: #05b851;
+    }
+
+    .card-status.bloqueado {
+      background: #d62828;
+    }
+
+    .card-status.pendente {
+      background: #f5a400;
+    }
+
+    .card-status.vencido {
+      background: #8b0000;
+    }
+
+    .status-texto {
+      font-size: 34px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      min-height: 86px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .valor {
+      font-size: 19px;
+      font-weight: 900;
+      color: #02b957;
+    }
+
+    .valor.alerta {
+      color: #d62828;
+    }
+
+    .valor.pendente {
+      color: #f5a400;
+    }
+
+    .treinamentos {
+      grid-row: span 3;
+      min-height: 264px;
+      justify-content: flex-start;
+      padding-top: 20px;
+    }
+
+    .treinamento-item {
+      margin-top: 16px;
+    }
+
+    .treinamento-item .sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+
+    .treinamento-item .data {
+      font-size: 17px;
+      font-weight: 900;
+      color: #333;
+    }
+
+    .mensagem {
+      background: rgba(255,255,255,0.92);
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 14px;
+      }
+
+      .topo {
+        grid-template-columns: 1fr;
+      }
+
+      .titulo {
+        font-size: 26px;
+      }
+
+      .logo {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .linha-principal {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .nome,
+      .status-texto {
+        font-size: 26px;
+      }
+
+      .treinamentos {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="painel">
+    <section class="topo">
+      <div class="filtro-box">
+        <label for="seletor">Selecione o colaborador</label>
+        <select id="seletor">
+          <option>Carregando...</option>
+        </select>
+      </div>
+
+      <h1 class="titulo">CONTROLE DE TERCEIROS</h1>
+
+      <div class="logo">
+        Solutech
+        <span>ingredientes</span>
+      </div>
+    </section>
+
+    <section id="conteudo">
+      <div class="mensagem">Carregando dados...</div>
+    </section>
+  </main>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbyLu3Gx8fqI5aQzp-TGhcBgWO9s9N0KwTQwG5L7seTkjjkbw2gDhA2JI9CvtpjNwDus/exec";
+
+    let base = [];
+
+    function formatarData(valor) {
+      if (!valor || valor === "--") return "--";
+
+      const texto = String(valor);
+
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
+        return texto;
+      }
+
+      const data = new Date(texto);
+
+      if (isNaN(data.getTime())) {
+        return texto;
+      }
+
+      return data.toLocaleDateString("pt-BR", {
+        timeZone: "America/Sao_Paulo"
+      });
+    }
+
+    function classeStatus(status) {
+      const s = String(status || "").toLowerCase();
+
+      if (s.includes("liberado")) return "liberado";
+      if (s.includes("bloqueado")) return "bloqueado";
+      if (s.includes("pendente")) return "pendente";
+      if (s.includes("vencido")) return "vencido";
+
+      return "pendente";
+    }
+
+    function classeValor(valor) {
+      const v = String(valor || "").toLowerCase();
+
+      if (v.includes("vencido") || v.includes("bloqueado")) return "alerta";
+      if (v.includes("pendente")) return "pendente";
+
+      return "";
+    }
+
+    function montarCard(rotulo, valor) {
+      const valorFormatado = formatarData(valor);
+
+      return `
+        <div class="card">
+          <div class="rotulo">${rotulo}</div>
+          <div class="valor ${classeValor(valorFormatado)}">${valorFormatado || "--"}</div>
+        </div>
+      `;
+    }
+
+    function renderizar(item) {
+      const conteudo = document.getElementById("conteudo");
+
+      conteudo.innerHTML = `
+        <section class="linha-principal">
+          <div class="card-nome">
+            <div class="rotulo">Nome</div>
+            <div class="nome">${item.NOME || "--"}</div>
+          </div>
+
+          <div class="card-status ${classeStatus(item.STATUS)}">
+            <div class="rotulo" style="color:#fff;">Status</div>
+            <div class="status-texto">${item.STATUS || "--"}</div>
+          </div>
+        </section>
+
+        <section class="grid-cards">
+          ${montarCard("Função", item.FUNCAO)}
+          ${montarCard("Empresa", item.EMPRESA)}
+          ${montarCard("Validade da Integração", item.VALIDADE_INTEGRACAO)}
+          ${montarCard("Validade ASO", item.VALIDADE_ASO)}
+
+          ${montarCard("Validade PCMSO", item.VALIDADE_PCMSO)}
+          ${montarCard("Validade PGR", item.VALIDADE_PGR)}
+          ${montarCard("Ficha de EPI", item.FICHA_EPI)}
+
+          <div class="card treinamentos">
+            <div class="rotulo">Treinamentos</div>
+
+            <div class="treinamento-item">
+              <div class="sub">Validade NR35</div>
+              <div class="data">${formatarData(item.NR35)}</div>
+            </div>
+
+            <div class="treinamento-item">
+              <div class="sub">Validade NR-33</div>
+              <div class="data">${formatarData(item.NR33)}</div>
+            </div>
+
+            <div class="treinamento-item">
+              <div class="sub">Validade NR-10</div>
+              <div class="data">${formatarData(item.NR10)}</div>
+            </div>
+          </div>
+
+          ${montarCard("RG/CPF", item.RG_CPF)}
+          ${montarCard("Ficha de Registro", item.FICHA_REGISTRO)}
+          ${montarCard("CTPS", item.CTPS)}
+        </section>
+      `;
+    }
+
+    function popularSeletor() {
+      const seletor = document.getElementById("seletor");
+
+      seletor.innerHTML = "";
+
+      base.forEach((item, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = item.NOME || `Registro ${index + 1}`;
+        seletor.appendChild(option);
+      });
+
+      seletor.addEventListener("change", () => {
+        renderizar(base[Number(seletor.value)]);
+      });
+
+      if (base.length > 0) {
+        seletor.value = 0;
+        renderizar(base[0]);
+      }
+    }
+
+    async function carregarDados() {
+      const conteudo = document.getElementById("conteudo");
+
+      try {
+        const resposta = await fetch(API_URL);
+        base = await resposta.json();
+
+        if (!Array.isArray(base) || base.length === 0) {
+          conteudo.innerHTML = `<div class="mensagem">Nenhum terceiro ativo encontrado.</div>`;
+          return;
+        }
+
+        base.sort((a, b) => String(a.NOME).localeCompare(String(b.NOME), "pt-BR"));
+
+        popularSeletor();
+
+      } catch (erro) {
+        console.error(erro);
+        conteudo.innerHTML = `
+          <div class="mensagem">
+            Não foi possível carregar os dados.<br>
+            Verifique se o Apps Script está publicado como App da Web.
+          </div>
+        `;
+      }
+    }
+
+    carregarDados();
+  </script>
+</body>
+</html>
