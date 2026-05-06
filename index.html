@@ -3,220 +3,251 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controle de Terceiros</title>
+  <title>Controle de Terceiros | Solutech</title>
 
   <style>
+    :root {
+      --teal: #00a9a5;
+      --teal-dark: #007f7b;
+      --teal-soft: #e7fbfa;
+      --green: #0fbf65;
+      --yellow: #f2a900;
+      --red: #e04444;
+      --text: #263238;
+      --muted: #68737a;
+      --bg: #f4f7f8;
+      --card: rgba(255, 255, 255, 0.94);
+      --shadow: 0 18px 45px rgba(0, 70, 75, 0.16);
+      --radius: 24px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Inter, Arial, Helvetica, sans-serif;
     }
 
     body {
       min-height: 100vh;
+      color: var(--text);
       background:
-        linear-gradient(135deg, rgba(0, 120, 110, 0.96), rgba(34, 174, 151, 0.76)),
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.30), transparent 24%),
-        radial-gradient(circle at 85% 18%, rgba(255,255,255,0.20), transparent 26%);
-      padding: 24px;
-      color: #111;
+        radial-gradient(circle at 10% 10%, rgba(0, 169, 165, .18), transparent 30%),
+        radial-gradient(circle at 90% 25%, rgba(15, 191, 101, .13), transparent 34%),
+        linear-gradient(135deg, #f8fbfc 0%, #eef5f5 100%);
+      padding: 28px;
     }
 
-    .painel {
-      width: min(1240px, 100%);
+    .page {
+      width: min(1180px, 100%);
       margin: 0 auto;
     }
 
-    .topo {
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ffffff 0%, #edfdfb 100%);
+      border: 1px solid rgba(0, 169, 165, .18);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      padding: 26px 30px;
+      margin-bottom: 22px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -90px;
+      width: 260px;
+      height: 260px;
+      background: rgba(0, 169, 165, .13);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: 340px 1fr 190px;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
       align-items: center;
-      gap: 24px;
-      margin-bottom: 18px;
     }
 
-    .filtros {
-      display: grid;
-      gap: 10px;
-    }
-
-    .filtro-box {
-      background: #fff;
-      padding: 10px;
-      border-radius: 6px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-    }
-
-    .filtro-box label {
-      display: block;
-      font-size: 11px;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #333;
-    }
-
-    .filtro-box select,
-    .filtro-box input {
-      width: 100%;
-      height: 36px;
-      border: 1px solid #cfcfcf;
-      border-radius: 4px;
-      padding: 0 8px;
-      font-size: 14px;
-      background: #fff;
-    }
-
-    .botao-atualizar {
-      width: 100%;
-      height: 34px;
-      border: none;
-      border-radius: 5px;
-      background: #05b851;
-      color: #fff;
+    .title-wrap small {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: var(--teal-dark);
+      border: 1px solid rgba(0, 169, 165, .25);
+      padding: 7px 12px;
+      border-radius: 999px;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 800;
+      letter-spacing: .4px;
       text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+      margin-bottom: 12px;
     }
 
-    .botao-atualizar:hover {
-      filter: brightness(0.95);
+    .title-wrap small::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(15, 191, 101, .12);
     }
 
-    .titulo {
-      color: #fff;
-      font-size: 36px;
-      font-weight: 900;
-      text-align: center;
-      letter-spacing: 1.5px;
+    h1 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: .95;
+      letter-spacing: -2px;
+      color: #123537;
     }
 
     .logo {
-      justify-self: end;
-      color: #fff;
-      font-size: 25px;
-      font-weight: 900;
-      line-height: 0.9;
-      text-align: right;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+      width: 230px;
+      max-width: 30vw;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .12));
     }
 
-    .logo span {
-      display: block;
-      font-size: 11px;
-      font-style: italic;
+    .toolbar {
+      position: relative;
+      z-index: 9999;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      margin-bottom: 22px;
+      align-items: center;
+    }
+
+    .search-card {
+      position: relative;
+      z-index: 9999;
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 169, 165, .20);
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(0, 70, 75, .10);
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      align-items: center;
+    }
+
+    .search-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .search-input {
+      height: 42px;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 0 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .search-input::placeholder {
+      color: #90a0a5;
+      font-weight: 600;
+    }
+
+    .suggestions {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 8px);
+      background: white;
+      border: 1px solid rgba(0, 169, 165, .18);
+      border-radius: 18px;
+      box-shadow: 0 22px 60px rgba(0, 70, 75, .25);
+      overflow: hidden;
+      z-index: 99999;
+      max-height: 310px;
+      overflow-y: auto;
+    }
+
+    .suggestion-item {
+      padding: 13px 18px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f4f4;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      background: #fff;
+    }
+
+    .suggestion-item span {
+      color: var(--muted);
+      font-size: 12px;
       font-weight: 700;
     }
 
-    .indicadores {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      margin-bottom: 18px;
+    .suggestion-item:hover {
+      background: #f3fbfb;
     }
 
-    .indicador {
-      background: rgba(255,255,255,0.95);
-      border-radius: 7px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.22);
-      padding: 11px 8px;
-      text-align: center;
-      min-height: 72px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .indicador .num {
-      font-size: 25px;
-      font-weight: 900;
-      color: #111;
-    }
-
-    .indicador .txt {
-      font-size: 10px;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: #444;
-      margin-top: 4px;
-    }
-
-    .indicador.liberado .num { color: #03ad4d; }
-    .indicador.pendente .num { color: #f5a400; }
-    .indicador.bloqueado .num { color: #d62828; }
-    .indicador.vencido .num { color: #9b0000; }
-    .indicador.vencendo .num { color: #e08100; }
-
-    .linha-principal {
-      display: grid;
-      grid-template-columns: 1fr 310px;
-      gap: 22px;
-      margin-bottom: 28px;
-    }
-
-    .card-nome,
-    .card-status,
-    .card,
-    .observacao {
-      background: #fff;
-      border-radius: 7px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.28);
-      text-align: center;
-    }
-
-    .card-nome {
-      min-height: 110px;
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .rotulo {
-      font-size: 11px;
-      font-weight: 800;
-      color: #222;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .nome {
-      font-size: 34px;
-      font-weight: 900;
-      color: #000;
-    }
-
-    .card-status {
-      min-height: 110px;
-      padding: 18px;
+    .refresh-btn {
+      border: none;
+      min-height: 62px;
+      padding: 0 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .card-status.liberado { background: #05b851; }
-    .card-status.bloqueado { background: #d62828; }
-    .card-status.pendente { background: #f5a400; }
-    .card-status.vencido { background: #8b0000; }
-
-    .status-texto {
-      font-size: 34px;
+      font-size: 14px;
       font-weight: 900;
       text-transform: uppercase;
+      letter-spacing: .3px;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(0, 169, 165, .28);
+      transition: .2s ease;
+      white-space: nowrap;
     }
 
-    .grid-cards {
+    .refresh-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(.98);
+    }
+
+    #app {
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1.2fr .8fr;
       gap: 22px;
+      margin-bottom: 22px;
     }
 
-    .card {
-      min-height: 86px;
-      padding: 14px 12px;
+    .profile-card,
+    .status-card,
+    .doc-card,
+    .loading {
+      background: var(--card);
+      border: 1px solid rgba(0, 169, 165, .18);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 34px rgba(0, 70, 75, .11);
+    }
+
+    .profile-card {
+      padding: 28px;
+      min-height: 190px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -224,186 +255,268 @@
       overflow: hidden;
     }
 
-    .valor {
-      font-size: 20px;
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      top: 28px;
+      bottom: 28px;
+      left: 0;
+      background: linear-gradient(var(--teal), var(--green));
+      border-radius: 0 10px 10px 0;
+    }
+
+    .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--muted);
       font-weight: 900;
-      color: #02b957;
-      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
-    .valor.vencido {
-      color: #d62828;
+    .person-name {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1;
+      letter-spacing: -1.8px;
+      font-weight: 950;
+      color: #0f2f31;
+      margin-bottom: 18px;
     }
 
-    .valor.vencendo {
-      color: #e08100;
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .valor.pendente {
-      color: #f5a400;
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 13px;
+      border-radius: 999px;
+      background: #f3f8f8;
+      color: #365255;
+      border: 1px solid #e1eeee;
+      font-size: 13px;
+      font-weight: 850;
     }
 
-    .tag {
-      margin-top: 6px;
-      font-size: 10px;
-      font-weight: 900;
+    .status-card {
+      padding: 26px;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .status-card::after {
+      content: "";
+      position: absolute;
+      right: -34px;
+      bottom: -44px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.20);
+    }
+
+    .status-card .label {
+      color: rgba(255,255,255,.84);
+    }
+
+    .status-value {
+      color: #fff;
+      font-size: 42px;
+      font-weight: 950;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-liberado {
+      background: linear-gradient(135deg, #0dbf64, #069c51);
+      border: none;
+    }
+
+    .status-pendente {
+      background: linear-gradient(135deg, #ffbd2e, #e19400);
+      border: none;
+    }
+
+    .status-bloqueado,
+    .status-vencido {
+      background: linear-gradient(135deg, #e95050, #bf2525);
+      border: none;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .doc-card {
+      padding: 20px;
+      min-height: 132px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: .2s ease;
+      border-left: 5px solid var(--teal);
+    }
+
+    .doc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(0, 70, 75, .14);
+    }
+
+    .doc-title {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .doc-value {
+      font-size: 24px;
+      font-weight: 950;
+      color: #123537;
+      margin: 8px 0 10px;
+      word-break: break-word;
+    }
+
+    .doc-badge {
+      align-self: flex-start;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 950;
       text-transform: uppercase;
       letter-spacing: .3px;
+      background: var(--teal-soft);
+      color: var(--teal-dark);
     }
 
-    .tag.ok { color: #02b957; }
-    .tag.vencido { color: #d62828; }
-    .tag.vencendo { color: #e08100; }
-    .tag.pendente { color: #f5a400; }
-
-    .treinamentos {
-      grid-row: span 3;
-      min-height: 264px;
-      justify-content: flex-start;
-      padding-top: 20px;
+    .doc-ok .doc-badge {
+      background: rgba(15, 191, 101, .12);
+      color: #087f43;
     }
 
-    .treinamento-item {
-      margin-top: 16px;
+    .doc-vencendo {
+      border-left-color: var(--yellow);
     }
 
-    .treinamento-item .sub {
-      font-size: 10px;
-      text-transform: uppercase;
-      color: #555;
-      margin-bottom: 7px;
-      font-weight: 800;
+    .doc-vencendo .doc-badge {
+      background: rgba(242, 169, 0, .13);
+      color: #a96c00;
     }
 
-    .treinamento-item .data {
-      font-size: 17px;
-      font-weight: 900;
-      color: #333;
+    .doc-vencido {
+      border-left-color: var(--red);
     }
 
-    .treinamento-item .data.vencido { color: #d62828; }
-    .treinamento-item .data.vencendo { color: #e08100; }
-
-    .observacao {
-      margin-top: 22px;
-      padding: 14px 16px;
-      text-align: left;
+    .doc-vencido .doc-badge {
+      background: rgba(224, 68, 68, .12);
+      color: #b92b2b;
     }
 
-    .observacao .rotulo {
-      margin-bottom: 6px;
+    .doc-pendente {
+      border-left-color: var(--yellow);
     }
 
-    .observacao p {
-      font-size: 14px;
-      font-weight: 700;
-      color: #333;
-      line-height: 1.4;
+    .doc-pendente .doc-badge {
+      background: rgba(242, 169, 0, .13);
+      color: #a96c00;
     }
 
-    .mensagem {
-      background: rgba(255,255,255,0.92);
-      padding: 16px;
-      border-radius: 8px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-      font-weight: 700;
+    .loading {
+      padding: 32px;
       text-align: center;
+      font-weight: 900;
+      color: var(--muted);
     }
 
-    @media (max-width: 980px) {
+    .footer-note {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: #78878c;
+      font-weight: 650;
+    }
+
+    @media (max-width: 950px) {
       body {
-        padding: 14px;
+        padding: 16px;
       }
 
-      .topo {
+      .hero-inner,
+      .toolbar,
+      .main-grid {
         grid-template-columns: 1fr;
-      }
-
-      .titulo {
-        font-size: 27px;
       }
 
       .logo {
-        justify-self: center;
-        text-align: center;
+        width: 190px;
+        max-width: 70vw;
       }
 
-      .indicadores {
-        grid-template-columns: repeat(2, 1fr);
+      .refresh-btn {
+        width: 100%;
       }
 
-      .linha-principal {
+      .docs-grid {
         grid-template-columns: 1fr;
       }
 
-      .grid-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .nome,
-      .status-texto {
-        font-size: 26px;
-      }
-
-      .treinamentos {
-        min-height: auto;
+      .status-value {
+        font-size: 34px;
       }
     }
   </style>
 </head>
 
 <body>
-  <main class="painel">
-    <section class="topo">
-      <div class="filtros">
-        <div class="filtro-box">
-          <label for="busca">Buscar colaborador</label>
-          <input id="busca" type="text" placeholder="Digite parte do nome..." />
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="title-wrap">
+          <small>Painel Online</small>
+          <h1>Controle de Terceiros</h1>
         </div>
 
-        <div class="filtro-box">
-          <label for="seletor">Selecione o colaborador</label>
-          <select id="seletor">
-            <option>Carregando...</option>
-          </select>
-        </div>
+        <img class="logo" src="data:image/png;base64,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" alt="Logo Solutech Ingredientes">
+      </div>
+    </header>
 
-        <button class="botao-atualizar" onclick="carregarDados()">Atualizar dados</button>
+    <section class="toolbar">
+      <div class="search-card">
+        <div class="search-icon">⌕</div>
+        <input id="searchInput" class="search-input" type="text" placeholder="Buscar colaborador por nome, empresa ou função..." autocomplete="off">
+        <div id="suggestions" class="suggestions"></div>
       </div>
 
-      <h1 class="titulo">CONTROLE DE TERCEIROS</h1>
-
-      <div class="logo">
-        Solutech
-        <span>ingredientes</span>
-      </div>
+      <button id="refreshBtn" class="refresh-btn">Atualizar dados</button>
     </section>
 
-    <section id="indicadores" class="indicadores"></section>
+    <main id="app">
+      <div class="loading">Carregando dados...</div>
+    </main>
 
-    <section id="conteudo">
-      <div class="mensagem">Carregando dados...</div>
-    </section>
-  </main>
+    <div class="footer-note">Os dados são carregados diretamente da base Google Sheets.</div>
+  </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyLu3Gx8fqI5aQzp-TGhcBgWO9s9N0KwTQwG5L7seTkjjkbw2gDhA2JI9CvtpjNwDus/exec";
-
     let base = [];
-    let filtrados = [];
+    let atual = null;
 
-    const camposValidade = [
-      "VALIDADE_INTEGRACAO",
-      "VALIDADE_ASO",
-      "VALIDADE_PCMSO",
-      "VALIDADE_PGR",
-      "FICHA_EPI",
-      "NR35",
-      "NR33",
-      "NR10"
-    ];
-
-    function normalizarTexto(valor) {
+    function normalizar(valor) {
       return String(valor || "")
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -413,7 +526,6 @@
 
     function parseData(valor) {
       if (!valor || valor === "--") return null;
-
       const texto = String(valor).trim();
 
       if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
@@ -422,30 +534,20 @@
       }
 
       const data = new Date(texto);
-
       if (isNaN(data.getTime())) return null;
-
       return new Date(data.getFullYear(), data.getMonth(), data.getDate());
     }
 
     function formatarData(valor) {
       if (!valor || valor === "--") return "--";
+      const texto = String(valor).trim();
 
-      const texto = String(valor);
-
-      if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
-        return texto;
-      }
+      if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) return texto;
 
       const data = new Date(texto);
+      if (isNaN(data.getTime())) return texto;
 
-      if (isNaN(data.getTime())) {
-        return texto;
-      }
-
-      return data.toLocaleDateString("pt-BR", {
-        timeZone: "America/Sao_Paulo"
-      });
+      return data.toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
     }
 
     function diasAteVencer(valor) {
@@ -458,252 +560,206 @@
       return Math.ceil((data - hojeLimpo) / (1000 * 60 * 60 * 24));
     }
 
-    function situacaoData(valor) {
+    function statusDoDocumento(valor, ehData = true) {
+      const texto = normalizar(valor);
+
+      if (!valor || texto === "--" || texto === "na" || texto.includes("nao aplicavel")) {
+        return { classe: "doc-ok", badge: "Não aplicável" };
+      }
+
+      if (!ehData) {
+        if (texto.includes("pendente")) return { classe: "doc-pendente", badge: "Pendente" };
+        if (texto.includes("vencido") || texto.includes("bloqueado")) return { classe: "doc-vencido", badge: "Atenção" };
+        if (texto.includes("ok")) return { classe: "doc-ok", badge: "OK" };
+        return { classe: "doc-ok", badge: "Informado" };
+      }
+
       const dias = diasAteVencer(valor);
 
-      if (dias === null) return "sem-data";
-      if (dias < 0) return "vencido";
-      if (dias <= 30) return "vencendo";
-      return "ok";
-    }
+      if (dias === null) {
+        if (texto.includes("pendente")) return { classe: "doc-pendente", badge: "Pendente" };
+        return { classe: "doc-ok", badge: "Informado" };
+      }
 
-    function textoSituacao(valor) {
-      const situacao = situacaoData(valor);
-      const dias = diasAteVencer(valor);
+      if (dias < 0) return { classe: "doc-vencido", badge: `Vencido há ${Math.abs(dias)} dia(s)` };
+      if (dias <= 30) return { classe: "doc-vencendo", badge: `Vence em ${dias} dia(s)` };
 
-      if (situacao === "vencido") return `Vencido há ${Math.abs(dias)} dia(s)`;
-      if (situacao === "vencendo") return `Vence em ${dias} dia(s)`;
-      if (situacao === "ok") return "Dentro do prazo";
-      return "";
-    }
-
-    function temDocumentoVencido(item) {
-      return camposValidade.some(campo => situacaoData(item[campo]) === "vencido");
-    }
-
-    function temDocumentoVencendo(item) {
-      return camposValidade.some(campo => situacaoData(item[campo]) === "vencendo");
+      return { classe: "doc-ok", badge: "Dentro do prazo" };
     }
 
     function classeStatus(status) {
-      const s = normalizarTexto(status);
+      const s = normalizar(status);
 
-      if (s.includes("liberado")) return "liberado";
-      if (s.includes("bloqueado")) return "bloqueado";
-      if (s.includes("pendente")) return "pendente";
-      if (s.includes("vencido")) return "vencido";
+      if (s.includes("liberado")) return "status-liberado";
+      if (s.includes("pendente")) return "status-pendente";
+      if (s.includes("bloqueado")) return "status-bloqueado";
+      if (s.includes("vencido")) return "status-vencido";
 
-      return "pendente";
+      return "status-pendente";
     }
 
-    function classeValorDocumento(valor) {
-      const texto = normalizarTexto(valor);
-
-      if (texto.includes("vencido") || texto.includes("bloqueado")) return "vencido";
-      if (texto.includes("pendente")) return "pendente";
-
-      const sit = situacaoData(valor);
-
-      if (sit === "vencido") return "vencido";
-      if (sit === "vencendo") return "vencendo";
-
-      return "";
-    }
-
-    function montarCard(rotulo, valor, validarData = false) {
-      const valorFormatado = validarData ? formatarData(valor) : (valor || "--");
-      const classe = validarData ? classeValorDocumento(valor) : classeValorDocumento(valorFormatado);
-      const tag = validarData ? textoSituacao(valor) : "";
+    function montarCard(titulo, valor, ehData = true) {
+      const info = statusDoDocumento(valor, ehData);
+      const valorFinal = ehData ? formatarData(valor) : (valor || "--");
 
       return `
-        <div class="card">
-          <div class="rotulo">${rotulo}</div>
-          <div class="valor ${classe}">${valorFormatado || "--"}</div>
-          ${tag ? `<div class="tag ${classe || "ok"}">${tag}</div>` : ""}
-        </div>
+        <article class="doc-card ${info.classe}">
+          <div>
+            <div class="doc-title">${titulo}</div>
+            <div class="doc-value">${valorFinal}</div>
+          </div>
+          <div class="doc-badge">${info.badge}</div>
+        </article>
       `;
     }
 
-    function montarTreinamento(rotulo, valor) {
-      const classe = classeValorDocumento(valor);
-      const tag = textoSituacao(valor);
+    function render(item) {
+      atual = item;
 
-      return `
-        <div class="treinamento-item">
-          <div class="sub">${rotulo}</div>
-          <div class="data ${classe}">${formatarData(valor)}</div>
-          ${tag ? `<div class="tag ${classe || "ok"}">${tag}</div>` : ""}
-        </div>
-      `;
-    }
-
-    function renderizarIndicadores() {
-      const total = base.length;
-      const liberados = base.filter(i => classeStatus(i.STATUS) === "liberado").length;
-      const pendentes = base.filter(i => classeStatus(i.STATUS) === "pendente").length;
-      const bloqueados = base.filter(i => classeStatus(i.STATUS) === "bloqueado").length;
-      const vencidos = base.filter(temDocumentoVencido).length;
-      const vencendo = base.filter(i => !temDocumentoVencido(i) && temDocumentoVencendo(i)).length;
-
-      document.getElementById("indicadores").innerHTML = `
-        <div class="indicador">
-          <div class="num">${total}</div>
-          <div class="txt">Total ativos</div>
-        </div>
-
-        <div class="indicador liberado">
-          <div class="num">${liberados}</div>
-          <div class="txt">Liberados</div>
-        </div>
-
-        <div class="indicador pendente">
-          <div class="num">${pendentes}</div>
-          <div class="txt">Pendentes</div>
-        </div>
-
-        <div class="indicador bloqueado">
-          <div class="num">${bloqueados}</div>
-          <div class="txt">Bloqueados</div>
-        </div>
-
-        <div class="indicador vencido">
-          <div class="num">${vencidos}</div>
-          <div class="txt">Com vencidos</div>
-        </div>
-
-        <div class="indicador vencendo">
-          <div class="num">${vencendo}</div>
-          <div class="txt">Vencendo 30 dias</div>
-        </div>
-      `;
-    }
-
-    function renderizar(item) {
-      const conteudo = document.getElementById("conteudo");
+      const app = document.getElementById("app");
 
       if (!item) {
-        conteudo.innerHTML = `<div class="mensagem">Nenhum colaborador encontrado.</div>`;
+        app.innerHTML = `<div class="loading">Nenhum colaborador encontrado.</div>`;
         return;
       }
 
-      conteudo.innerHTML = `
-        <section class="linha-principal">
-          <div class="card-nome">
-            <div class="rotulo">Nome</div>
-            <div class="nome">${item.NOME || "--"}</div>
-          </div>
+      app.innerHTML = `
+        <section class="main-grid">
+          <article class="profile-card">
+            <div class="label">Nome</div>
+            <div class="person-name">${item.NOME || "--"}</div>
 
-          <div class="card-status ${classeStatus(item.STATUS)}">
-            <div class="rotulo" style="color:#fff;">Status</div>
-            <div class="status-texto">${item.STATUS || "--"}</div>
-          </div>
+            <div class="meta-row">
+              <span class="pill">${item.FUNCAO || "Função não informada"}</span>
+              <span class="pill">${item.EMPRESA || "Empresa não informada"}</span>
+            </div>
+          </article>
+
+          <article class="status-card ${classeStatus(item.STATUS)}">
+            <div class="label">Status</div>
+            <div class="status-value">${item.STATUS || "--"}</div>
+          </article>
         </section>
 
-        <section class="grid-cards">
-          ${montarCard("Função", item.FUNCAO)}
-          ${montarCard("Empresa", item.EMPRESA)}
-          ${montarCard("Validade da Integração", item.VALIDADE_INTEGRACAO, true)}
-          ${montarCard("Validade ASO", item.VALIDADE_ASO, true)}
-
-          ${montarCard("Validade PCMSO", item.VALIDADE_PCMSO, true)}
-          ${montarCard("Validade PGR", item.VALIDADE_PGR, true)}
+        <section class="docs-grid">
+          ${montarCard("Integração", item.VALIDADE_INTEGRACAO, true)}
+          ${montarCard("ASO", item.VALIDADE_ASO, true)}
+          ${montarCard("PCMSO", item.VALIDADE_PCMSO, true)}
+          ${montarCard("PGR", item.VALIDADE_PGR, true)}
           ${montarCard("Ficha de EPI", item.FICHA_EPI, true)}
-
-          <div class="card treinamentos">
-            <div class="rotulo">Treinamentos</div>
-            ${montarTreinamento("Validade NR35", item.NR35)}
-            ${montarTreinamento("Validade NR-33", item.NR33)}
-            ${montarTreinamento("Validade NR-10", item.NR10)}
-          </div>
-
-          ${montarCard("RG/CPF", item.RG_CPF)}
-          ${montarCard("Ficha de Registro", item.FICHA_REGISTRO)}
-          ${montarCard("CTPS", item.CTPS)}
-        </section>
-
-        <section class="observacao">
-          <div class="rotulo">Observação</div>
-          <p>${item.OBSERVACAO || "Sem observações registradas."}</p>
+          ${montarCard("NR-10", item.NR10, true)}
+          ${montarCard("NR-33", item.NR33, true)}
+          ${montarCard("NR-35", item.NR35, true)}
+          ${montarCard("RG/CPF", item.RG_CPF, false)}
+          ${montarCard("Ficha de Registro", item.FICHA_REGISTRO, false)}
+          ${montarCard("CTPS", item.CTPS, false)}
+          ${montarCard("Observação", item.OBSERVACAO || "--", false)}
         </section>
       `;
     }
 
-    function popularSeletor(lista) {
-      const seletor = document.getElementById("seletor");
+    function listarSugestoes(lista) {
+      const box = document.getElementById("suggestions");
 
-      seletor.innerHTML = "";
-
-      if (lista.length === 0) {
-        const option = document.createElement("option");
-        option.textContent = "Nenhum colaborador encontrado";
-        option.value = "";
-        seletor.appendChild(option);
-        renderizar(null);
+      if (!lista.length) {
+        box.style.display = "none";
+        box.innerHTML = "";
         return;
       }
 
-      lista.forEach((item, index) => {
-        const option = document.createElement("option");
-        option.value = index;
-        option.textContent = item.NOME || `Registro ${index + 1}`;
-        seletor.appendChild(option);
-      });
+      box.innerHTML = lista.map((item, index) => `
+        <div class="suggestion-item" data-index="${index}">
+          <strong>${item.NOME || "--"}</strong>
+          <span>${item.EMPRESA || ""}</span>
+        </div>
+      `).join("");
 
-      seletor.value = 0;
-      renderizar(lista[0]);
+      box.style.display = "block";
+
+      [...box.querySelectorAll(".suggestion-item")].forEach((element, index) => {
+        element.onclick = () => {
+          render(lista[index]);
+          document.getElementById("searchInput").value = lista[index].NOME || "";
+          box.style.display = "none";
+        };
+      });
     }
 
-    function aplicarBusca() {
-      const termo = normalizarTexto(document.getElementById("busca").value);
+    function pesquisar() {
+      const termo = normalizar(document.getElementById("searchInput").value);
 
-      filtrados = base.filter(item => {
-        const nome = normalizarTexto(item.NOME);
-        const empresa = normalizarTexto(item.EMPRESA);
-        const funcao = normalizarTexto(item.FUNCAO);
+      if (!termo) {
+        listarSugestoes(base.slice(0, 10));
+        return;
+      }
 
-        return nome.includes(termo) || empresa.includes(termo) || funcao.includes(termo);
-      });
+      const lista = base.filter(item =>
+        normalizar(item.NOME).includes(termo) ||
+        normalizar(item.EMPRESA).includes(termo) ||
+        normalizar(item.FUNCAO).includes(termo)
+      );
 
-      popularSeletor(filtrados);
+      listarSugestoes(lista.slice(0, 12));
+
+      if (lista.length === 1) render(lista[0]);
     }
 
     async function carregarDados() {
-      const conteudo = document.getElementById("conteudo");
+      const app = document.getElementById("app");
+      app.innerHTML = `<div class="loading">Carregando dados...</div>`;
 
       try {
         const resposta = await fetch(API_URL + "?cache=" + Date.now(), { cache: "no-store" });
-        base = await resposta.json();
+        const dados = await resposta.json();
 
-        if (!Array.isArray(base) || base.length === 0) {
-          conteudo.innerHTML = `<div class="mensagem">Nenhum terceiro ativo encontrado.</div>`;
-          return;
+        if (!Array.isArray(dados)) throw new Error("A API não retornou uma lista.");
+
+        base = dados
+          .filter(item => String(item.NOME || "").trim() !== "")
+          .sort((a, b) => String(a.NOME || "").localeCompare(String(b.NOME || ""), "pt-BR"));
+
+        const buscaAtual = normalizar(document.getElementById("searchInput").value);
+
+        if (buscaAtual) {
+          const encontrado = base.find(item => normalizar(item.NOME).includes(buscaAtual));
+          render(encontrado || base[0] || null);
+        } else {
+          render(base[0] || null);
         }
-
-        base = base
-          .filter(item => normalizarTexto(item.ATIVO) === "sim")
-          .sort((a, b) => String(a.NOME).localeCompare(String(b.NOME), "pt-BR"));
-
-        filtrados = [...base];
-
-        renderizarIndicadores();
-        popularSeletor(filtrados);
-
-        document.getElementById("seletor").onchange = (e) => {
-          renderizar(filtrados[Number(e.target.value)]);
-        };
-
-        document.getElementById("busca").oninput = aplicarBusca;
 
       } catch (erro) {
         console.error(erro);
-        conteudo.innerHTML = `
-          <div class="mensagem">
-            Não foi possível carregar os dados.<br>
-            Verifique se o Apps Script está publicado como App da Web.
-          </div>
-        `;
+        app.innerHTML = `<div class="loading">Erro ao carregar dados. Verifique o Apps Script e a planilha.</div>`;
       }
     }
+
+    document.getElementById("refreshBtn").onclick = carregarDados;
+    document.getElementById("searchInput").oninput = pesquisar;
+    document.getElementById("searchInput").onfocus = () => listarSugestoes(base.slice(0, 10));
+
+    document.getElementById("searchInput").onkeydown = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const termo = normalizar(event.target.value);
+        const encontrado = base.find(item =>
+          normalizar(item.NOME).includes(termo) ||
+          normalizar(item.EMPRESA).includes(termo) ||
+          normalizar(item.FUNCAO).includes(termo)
+        );
+
+        if (encontrado) {
+          render(encontrado);
+          event.target.value = encontrado.NOME || "";
+          document.getElementById("suggestions").style.display = "none";
+        }
+      }
+    };
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".search-card")) {
+        document.getElementById("suggestions").style.display = "none";
+      }
+    });
 
     carregarDados();
   </script>
